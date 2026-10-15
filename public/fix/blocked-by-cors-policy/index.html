@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>blocked by CORS policy: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;has been blocked by CORS policy: No &#x27;Access-Control-Allow-Origin&#x27; header is present on the requested resource&quot; in apps built with Any frontend, Supabase Edge Functions, Express. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/blocked-by-cors-policy/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="blocked by CORS policy: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;has been blocked by CORS policy: No &#x27;Access-Control-Allow-Origin&#x27; header is present on the requested resource&quot; in apps built with Any frontend, Supabase Edge Functions, Express. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/blocked-by-cors-policy/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / APIs</p>
+<h1>&quot;Blocked by CORS policy&quot; when calling an API</h1>
+<div class="fix-error">has been blocked by CORS policy: No &#x27;Access-Control-Allow-Origin&#x27; header is present on the requested resource</div>
+<p class="meta">Any frontend · Supabase Edge Functions · Express · FastAPI · last checked 15 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>Your browser refused the response because the server didn't say your site is allowed to call it. The request may have worked; the browser just won't hand you the result.</p>
+<h2>Why AI tools cause it</h2>
+<p>The AI built a frontend and a backend on different addresses (say <code>localhost:5173</code> and <code>localhost:3000</code>, or your site and a function URL) without setting up the server to allow it. Sometimes it's calling a third-party API straight from the browser, which that API doesn't allow.</p>
+<h2>The fix</h2>
+<ul>
+<li><strong>Your own backend:</strong> set it to send <code>Access-Control-Allow-Origin</code> with your site's exact address. Answer <code>OPTIONS</code> (preflight) requests too.</li>
+<li><strong>A third-party API</strong> (OpenAI, Stripe, etc.): don't call it from the browser. Call your own server route, and have that call the API. This also keeps your secret key off the browser.</li>
+<li>Avoid <code>*</code> in production. List your real domains instead.</li>
+</ul>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>My frontend gets a CORS error calling <paste URL>. Tell me whether this request should go through my own server instead. If it's my API, add CORS handling that allows only my local dev address and my production domain, including OPTIONS preflight requests.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>Open the browser's Network tab. If the request shows a 404 or 500, fix that first; a crashing server also sends no CORS header.</p></article>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

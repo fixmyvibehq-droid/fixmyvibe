@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>npm ERESOLVE unable to resolve dependency tree: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;npm ERR! ERESOLVE unable to resolve dependency tree&quot; in apps built with npm, Vercel, Netlify. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/npm-eresolve/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="npm ERESOLVE unable to resolve dependency tree: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;npm ERR! ERESOLVE unable to resolve dependency tree&quot; in apps built with npm, Vercel, Netlify. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/npm-eresolve/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Build</p>
+<h1>&quot;ERESOLVE unable to resolve dependency tree&quot;</h1>
+<div class="fix-error">npm ERR! ERESOLVE unable to resolve dependency tree</div>
+<p class="meta">npm · Vercel · Netlify · Replit · Cursor · last checked 15 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>Two of your packages want different versions of a shared package (often React), and npm refuses to guess.</p>
+<h2>Why AI tools cause it</h2>
+<p>AI tools install packages from older tutorials alongside newer ones. A library that only supports React 18 meets a project on React 19, for example.</p>
+<h2>The fix</h2>
+<ol>
+<li>Read the error. It names the package that wants the older version (look for "Could not resolve dependency" and "peer").</li>
+<li>Best fix: upgrade that package to a version that supports your setup (<code>npm install &lt;package&gt;@latest</code>).</li>
+<li>If there's no compatible version yet, install with <code>npm install --legacy-peer-deps</code>. To make your host do the same, add a <code>.npmrc</code> file containing <code>legacy-peer-deps=true</code> and commit it.</li>
+</ol>
+<p>Treat option 3 as a workaround: it hides the warning, and the package may still misbehave.</p>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>npm install fails with ERESOLVE. Here is the full error: <paste it>. Tell me which package conflicts with which, whether a newer compatible version exists, and the safest fix.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>Delete <code>node_modules</code> and <code>package-lock.json</code>, then run <code>npm install</code> again so the lock file is rebuilt cleanly. Commit the new lock file.</p></article>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

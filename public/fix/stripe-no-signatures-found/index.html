@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>No signatures found matching the expected signature for payload: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;No signatures found matching the expected signature for payload&quot; in apps built with Stripe, Next.js, Express. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/stripe-no-signatures-found/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="No signatures found matching the expected signature for payload: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;No signatures found matching the expected signature for payload&quot; in apps built with Stripe, Next.js, Express. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/stripe-no-signatures-found/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Payments</p>
+<h1>Stripe webhook: &quot;No signatures found matching the expected signature&quot;</h1>
+<div class="fix-error">No signatures found matching the expected signature for payload</div>
+<p class="meta">Stripe · Next.js · Express · Vercel · last checked 15 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>Stripe signs every webhook so you know it's genuine. Your check failed, so your code rejected the event. Result: people pay, but your app never hears about it ("charged but no access").</p>
+<h2>Why AI tools cause it</h2>
+<p>Two causes cover almost every case:</p>
+<ul>
+<li><strong>The body was changed before checking.</strong> Signature checks need the exact raw request body. Frameworks often parse it into JSON first, which breaks the check.</li>
+<li><strong>Wrong signing secret.</strong> The <code>whsec_...</code> secret from the Stripe CLI (local testing) is different from the one for your live webhook endpoint in the Stripe dashboard.</li>
+</ul>
+<h2>The fix</h2>
+<ol>
+<li>Pass the raw body to <code>stripe.webhooks.constructEvent</code>. In Next.js App Router, use <code>await req.text()</code>, not <code>req.json()</code>. In Express, use <code>express.raw({ type: 'application/json' })</code> on the webhook route.</li>
+<li>Copy the signing secret from the specific endpoint in <strong>Stripe → Developers → Webhooks</strong> and set it as an environment variable on your host. Redeploy.</li>
+<li>Test and live mode each have their own secret. Use the one that matches.</li>
+</ol>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>My Stripe webhook fails with "No signatures found matching the expected signature for payload". Rewrite the handler so it verifies the signature using the raw request body for this framework, reads the signing secret from an environment variable, and returns 400 on failure and 200 on success.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>In the Stripe dashboard, open the endpoint and look at a failed delivery. It shows exactly what your server replied.</p></article>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

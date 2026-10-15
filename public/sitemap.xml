@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url><loc>https://fixmyvibe.org/</loc></url>
+<url><loc>https://fixmyvibe.org/fix/incorrect-api-key-provided/</loc></url>
+<url><loc>https://fixmyvibe.org/fix/ai-api-429-rate-limit/</loc></url>
+<url><loc>https://fixmyvibe.org/fix/blocked-by-cors-policy/</loc></url>
+<url><loc>https://fixmyvibe.org/fix/vercel-function-invocation-timeout/</loc></url>
+<url><loc>https://fixmyvibe.org/fix/hydration-failed/</loc></url>
+<url><loc>https://fixmyvibe.org/fix/module-not-found-on-deploy/</loc></url>
+<url><loc>https://fixmyvibe.org/fix/row-level-security-policy/</loc></url>
+<url><loc>https://fixmyvibe.org/fix/stripe-no-signatures-found/</loc></url>
+<url><loc>https://fixmyvibe.org/fix/npm-eresolve/</loc></url>
+<url><loc>https://fixmyvibe.org/fix/process-is-not-defined-vite/</loc></url>
+<url><loc>https://fixmyvibe.org/fix/window-is-not-defined/</loc></url>
+<url><loc>https://fixmyvibe.org/fix/supabase-auth-redirects-to-localhost/</loc></url>
+<url><loc>https://fixmyvibe.org/fix/supabaseurl-is-required/</loc></url>
+<url><loc>https://fixmyvibe.org/fix/too-many-database-connections/</loc></url>
+<url><loc>https://fixmyvibe.org/fix/too-many-re-renders/</loc></url>
+</urlset>

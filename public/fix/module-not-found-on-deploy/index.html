@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module not found: Can&#x27;t resolve: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;Module not found: Can&#x27;t resolve&quot; in apps built with Vercel, Netlify, Next.js. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/module-not-found-on-deploy/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Module not found: Can&#x27;t resolve: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;Module not found: Can&#x27;t resolve&quot; in apps built with Vercel, Netlify, Next.js. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/module-not-found-on-deploy/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Build</p>
+<h1>&quot;Module not found: Can&#x27;t resolve&quot; — builds locally, fails on deploy</h1>
+<div class="fix-error">Module not found: Can&#x27;t resolve</div>
+<p class="meta">Vercel · Netlify · Next.js · Vite · Cursor · last checked 15 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>The build can't find a file or package your code imports.</p>
+<h2>Why AI tools cause it</h2>
+<p>Three usual suspects:</p>
+<ul>
+<li><strong>Letter case.</strong> Your import says <code>./components/Button</code> but the file is <code>button.tsx</code>. Mac and Windows ignore case; the Linux servers your host builds on don't.</li>
+<li><strong>A package that isn't installed.</strong> The AI wrote an import but never added the package to <code>package.json</code>.</li>
+<li><strong>A file that was never committed</strong>, so it exists on your machine but not in your repo.</li>
+</ul>
+<h2>The fix</h2>
+<ol>
+<li>Read the error: it names the exact import that failed.</li>
+<li>Check the file name's capital letters match the import exactly. To rename only the case in git, use <code>git mv button.tsx Button.tsx</code>.</li>
+<li>If it's a package, install it (<code>npm install &lt;name&gt;</code>) and commit <code>package.json</code> and the lock file.</li>
+<li>Run <code>git status</code> to check nothing important is uncommitted.</li>
+</ol>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>My deploy fails with "Module not found: Can't resolve <paste the path>". Check every import in this project matches the real file name, including capital letters, and list any imported packages missing from package.json.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>Clear your host's build cache and redeploy.</p></article>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

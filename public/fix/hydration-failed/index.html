@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hydration failed: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;Hydration failed because the server rendered HTML didn&#x27;t match the client&quot; in apps built with Next.js, React, Cursor. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/hydration-failed/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Hydration failed: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;Hydration failed because the server rendered HTML didn&#x27;t match the client&quot; in apps built with Next.js, React, Cursor. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/hydration-failed/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Frontend</p>
+<h1>&quot;Hydration failed&quot; in Next.js</h1>
+<div class="fix-error">Hydration failed because the server rendered HTML didn&#x27;t match the client</div>
+<p class="meta">Next.js · React · Cursor · v0 · last checked 15 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>Next.js renders your page on the server, then React takes it over in the browser. The two versions came out different, so React complained. Older versions word it as "the initial UI does not match what was rendered on the server".</p>
+<h2>Why AI tools cause it</h2>
+<p>AI code often uses things that differ between server and browser while the page first renders:</p>
+<ul>
+<li>the current time or date (<code>new Date()</code>), or random values (<code>Math.random()</code>)</li>
+<li>browser-only things like <code>window</code>, <code>localStorage</code> or screen size</li>
+<li>invalid HTML nesting, such as a <code>&lt;div&gt;</code> inside a <code>&lt;p&gt;</code>, or a link inside a link</li>
+</ul>
+<p>Browser extensions that edit the page can also trigger it. Test in a private window to rule them out.</p>
+<h2>The fix</h2>
+<ol>
+<li>Move browser-only or changing values into <code>useEffect</code>, so they're set after the page loads.</li>
+<li>For a component that can only work in the browser, load it with <code>dynamic(() =&gt; import('./Thing'), { ssr: false })</code>.</li>
+<li>Fix any invalid nesting the error points to.</li>
+</ol>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>My Next.js page throws a hydration error. Find anything in this component and its children that renders differently on the server and in the browser (dates, random values, window or localStorage, invalid HTML nesting), and fix it without turning off server rendering for the whole page.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>In development, the error overlay shows the exact element that differed. Start there.</p></article>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

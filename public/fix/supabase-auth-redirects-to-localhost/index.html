@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Supabase login redirects to localhost: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;Magic link or OAuth login sends users to localhost:3000&quot; in apps built with Supabase, Lovable, Bolt. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/supabase-auth-redirects-to-localhost/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Supabase login redirects to localhost: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;Magic link or OAuth login sends users to localhost:3000&quot; in apps built with Supabase, Lovable, Bolt. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/supabase-auth-redirects-to-localhost/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Database &amp; auth</p>
+<h1>Supabase login or magic link sends users to localhost</h1>
+<div class="fix-error">Magic link or OAuth login sends users to localhost:3000</div>
+<p class="meta">Supabase · Lovable · Bolt · Vercel · last checked 15 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>After signing in, users land on <code>localhost:3000</code> (or another dev address) and see an error page. Supabase is sending them to the address in its settings, which is still your development one.</p>
+<h2>Why AI tools cause it</h2>
+<p>Supabase's <strong>Site URL</strong> defaults to localhost while you build, and AI tools rarely remind you to change it when you go live.</p>
+<h2>The fix</h2>
+<ol>
+<li>In Supabase, open <strong>Authentication → URL Configuration</strong>.</li>
+<li>Set <strong>Site URL</strong> to your live address, e.g. <code>https://yourapp.com</code>.</li>
+<li>Under <strong>Redirect URLs</strong>, add your live address and keep <code>http://localhost:3000/**</code> for local testing.</li>
+<li>In your code, pass <code>emailRedirectTo</code> (magic links) or <code>redirectTo</code> (OAuth) using your site's current address rather than a hard-coded localhost.</li>
+</ol>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>After deploying, Supabase auth redirects users to localhost. Find every place this project sets a redirect URL for sign-in, sign-up, magic links or password reset, and change them to use the current site's origin. Then tell me exactly what to set as Site URL and Redirect URLs in Supabase.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>Old magic-link emails still contain the old address. Request a new link after changing the settings.</p></article>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

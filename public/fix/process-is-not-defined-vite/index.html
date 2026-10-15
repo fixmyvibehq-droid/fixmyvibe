@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>process is not defined (Vite): how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;Uncaught ReferenceError: process is not defined&quot; in apps built with Vite, React, Lovable. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/process-is-not-defined-vite/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="process is not defined (Vite): how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;Uncaught ReferenceError: process is not defined&quot; in apps built with Vite, React, Lovable. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/process-is-not-defined-vite/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Deploy &amp; environment</p>
+<h1>&quot;process is not defined&quot; in a Vite app</h1>
+<div class="fix-error">Uncaught ReferenceError: process is not defined</div>
+<p class="meta">Vite · React · Lovable · Bolt · last checked 15 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>Your browser code uses <code>process.env.SOMETHING</code>, which works in Node and older React setups, but Vite doesn't provide it in the browser.</p>
+<h2>Why AI tools cause it</h2>
+<p>AI models have seen far more Create React App and Next.js code than Vite code, so they reach for <code>process.env</code> by habit.</p>
+<h2>The fix</h2>
+<ol>
+<li>Replace <code>process.env.X</code> with <code>import.meta.env.VITE_X</code> in your frontend code.</li>
+<li>Rename the variables in <code>.env</code> (and on your host) to start with <code>VITE_</code>. Vite only exposes variables with that prefix to the browser.</li>
+<li>Restart the dev server, and redeploy so the build picks up the new names.</li>
+</ol>
+<p>Anything starting with <code>VITE_</code> is public. Keep secret keys out of it and call those APIs from a server or edge function instead.</p>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>My Vite app throws "process is not defined". Replace every process.env use in browser code with the Vite equivalent, list the .env variables I need to rename with the VITE_ prefix, and flag any secret keys that shouldn't be in the browser at all.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>If a third-party library uses <code>process.env</code>, ask your AI how to add a <code>define</code> entry for it in <code>vite.config</code>.</p></article>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

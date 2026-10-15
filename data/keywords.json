@@ -1,0 +1,17 @@
+{
+  "supabaseurl-is-required": ["supabaseurl", "supabase url", "required", "supabasekey", "env", "environment variable", "production", "deploy"],
+  "row-level-security-policy": ["row-level security", "rls", "policy", "42501", "violates", "permission denied", "supabase", "insert"],
+  "module-not-found-on-deploy": ["module not found", "can't resolve", "cannot find module", "import", "build failed", "case"],
+  "blocked-by-cors-policy": ["cors", "access-control-allow-origin", "preflight", "blocked", "origin", "options"],
+  "stripe-no-signatures-found": ["stripe", "webhook", "signature", "whsec", "constructevent", "raw body", "payload"],
+  "hydration-failed": ["hydration", "did not match", "didn't match", "server rendered", "text content does not match", "next.js"],
+  "incorrect-api-key-provided": ["401", "incorrect api key", "invalid api key", "invalid x-api-key", "authentication_error", "unauthorized", "openai", "anthropic"],
+  "supabase-auth-redirects-to-localhost": ["localhost", "redirect", "magic link", "oauth", "site url", "redirect_to", "login", "sign in"],
+  "too-many-re-renders": ["too many re-renders", "infinite loop", "maximum update depth", "setstate", "onclick"],
+  "npm-eresolve": ["eresolve", "dependency tree", "peer dep", "conflicting peer dependency", "legacy-peer-deps", "npm err"],
+  "window-is-not-defined": ["window is not defined", "document is not defined", "localstorage is not defined", "referenceerror", "ssr"],
+  "process-is-not-defined-vite": ["process is not defined", "process.env", "import.meta.env", "vite"],
+  "vercel-function-invocation-timeout": ["function_invocation_timeout", "timeout", "504", "gateway_timeout", "timed out", "vercel"],
+  "too-many-database-connections": ["too many connections", "too many clients", "connection slots", "prisma", "can't reach database server", "p1001", "pool", "pgbouncer"],
+  "ai-api-429-rate-limit": ["429", "rate limit", "too many requests", "quota", "insufficient_quota", "exceeded your current quota", "overloaded"]
+}

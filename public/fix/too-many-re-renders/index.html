@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Too many re-renders: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;Too many re-renders. React limits the number of renders to prevent an infinite loop.&quot; in apps built with React, Next.js, Lovable. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/too-many-re-renders/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Too many re-renders: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;Too many re-renders. React limits the number of renders to prevent an infinite loop.&quot; in apps built with React, Next.js, Lovable. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/too-many-re-renders/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Frontend</p>
+<h1>&quot;Too many re-renders&quot; in React</h1>
+<div class="fix-error">Too many re-renders. React limits the number of renders to prevent an infinite loop.</div>
+<p class="meta">React · Next.js · Lovable · v0 · last checked 15 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>A component updates its own state every time it renders, which makes it render again, forever. React stops it and throws this error.</p>
+<h2>Why AI tools cause it</h2>
+<p>Two patterns cause nearly all of these:</p>
+<ul>
+<li><strong>Calling a function instead of passing it.</strong> <code>onClick={setOpen(true)}</code> runs immediately on every render. It should be <code>onClick={() =&gt; setOpen(true)}</code>.</li>
+<li><strong>Setting state directly in the component body</strong> instead of inside an event or <code>useEffect</code>.</li>
+</ul>
+<h2>The fix</h2>
+<ol>
+<li>Look at every <code>onClick</code>, <code>onChange</code> and similar prop. If it has <code>(...)</code> right after a function name, wrap it in <code>() =&gt; ...</code>.</li>
+<li>Move any <code>setSomething(...)</code> that sits loose in the component body into an event handler or a <code>useEffect</code> with the right dependencies.</li>
+</ol>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>My React component crashes with "Too many re-renders". Find any state update that runs during render, including event props that call a function instead of passing one, and fix them.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>If it's a <code>useEffect</code> that keeps firing, check its dependency list. An object or array created during render counts as "changed" every time.</p></article>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FUNCTION_INVOCATION_TIMEOUT on Vercel: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;504: GATEWAY_TIMEOUT — FUNCTION_INVOCATION_TIMEOUT&quot; in apps built with Vercel, Next.js, OpenAI. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/vercel-function-invocation-timeout/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="FUNCTION_INVOCATION_TIMEOUT on Vercel: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;504: GATEWAY_TIMEOUT — FUNCTION_INVOCATION_TIMEOUT&quot; in apps built with Vercel, Next.js, OpenAI. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/vercel-function-invocation-timeout/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Deploy &amp; environment</p>
+<h1>Vercel &quot;FUNCTION_INVOCATION_TIMEOUT&quot;</h1>
+<div class="fix-error">504: GATEWAY_TIMEOUT — FUNCTION_INVOCATION_TIMEOUT</div>
+<p class="meta">Vercel · Next.js · OpenAI · Anthropic · last checked 15 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>A server function took longer than your Vercel plan allows, so Vercel stopped it and returned a 504.</p>
+<h2>Why AI tools cause it</h2>
+<ul>
+<li>Waiting for a long AI response to finish before replying.</li>
+<li>Doing several slow jobs one after another (scraping, image generation, big database queries).</li>
+<li>A request that never returns, such as a database call that hangs or a missing <code>return</code> in a route.</li>
+</ul>
+<h2>The fix</h2>
+<ol>
+<li><strong>Stream AI responses</strong> instead of waiting for the whole answer. The user sees text straight away and the function stays responsive.</li>
+<li>Run independent slow calls at the same time with <code>Promise.all</code>.</li>
+<li>If a job really is long, raise the function's maximum duration within your plan's limit (<code>export const maxDuration = ...</code> in Next.js), or move it to a background job and let the page check back.</li>
+<li>Add timeouts to outside calls so a hung request fails fast with a clear error.</li>
+</ol>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>This Vercel function times out with FUNCTION_INVOCATION_TIMEOUT. Find what's slow, stream any AI responses, run independent calls in parallel, add timeouts to external requests, and tell me if this job should be moved to a background task.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>Check Vercel's function logs for the request. If it times out even on tiny inputs, something is hanging rather than slow.</p></article>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

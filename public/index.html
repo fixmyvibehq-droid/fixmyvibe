@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FixMyVibe: fixes for broken vibe-coded apps</title>
+<meta name="description" content="Your vibe-coded app broke? Paste the error and get a plain-English fix plus a prompt to paste into Cursor, Lovable, Bolt, Replit or Claude Code.">
+<link rel="canonical" href="https://fixmyvibe.org/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="FixMyVibe: fixes for broken vibe-coded apps">
+<meta property="og:description" content="Your vibe-coded app broke? Paste the error and get a plain-English fix plus a prompt to paste into Cursor, Lovable, Bolt, Replit or Claude Code.">
+<meta property="og:url" content="https://fixmyvibe.org/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<section class="wrap hero">
+<h1>Your vibe-coded app broke.<br><span>Let’s fix it.</span></h1>
+<p>Plain-English fixes for the errors AI coding tools leave behind. Every fix ends with a prompt you paste straight into your AI.</p>
+</section>
+<section class="wrap" id="doctor" aria-labelledby="doctor-title">
+<form class="doctor" id="doctor-form">
+<label id="doctor-title" for="doctor-input">Error Doctor · paste your error message</label>
+<textarea id="doctor-input" name="error" placeholder="e.g. Error: supabaseUrl is required." spellcheck="false"></textarea>
+<div class="doctor-row"><button class="btn" type="submit">Find my fix</button><span class="hint">Runs in your browser. Nothing you paste is sent anywhere.</span></div>
+<div class="results" id="doctor-results" aria-live="polite"></div>
+</form>
+</section>
+<section class="wrap" id="library" aria-labelledby="library-title">
+<h2 class="section-title" id="library-title">Fix library</h2>
+<p class="section-sub">15 fixes and growing. New ones added every week.</p>
+<div class="category"><h3>Deploy &amp; environment</h3><ul class="fix-list"><li><a href="/fix/vercel-function-invocation-timeout/">FUNCTION_INVOCATION_TIMEOUT on Vercel<code>504: GATEWAY_TIMEOUT — FUNCTION_INVOCATION_TIMEOUT</code></a></li><li><a href="/fix/process-is-not-defined-vite/">process is not defined (Vite)<code>Uncaught ReferenceError: process is not defined</code></a></li><li><a href="/fix/supabaseurl-is-required/">supabaseUrl is required<code>Error: supabaseUrl is required.</code></a></li></ul></div><div class="category"><h3>Build</h3><ul class="fix-list"><li><a href="/fix/module-not-found-on-deploy/">Module not found: Can&#x27;t resolve<code>Module not found: Can&#x27;t resolve</code></a></li><li><a href="/fix/npm-eresolve/">npm ERESOLVE unable to resolve dependency tree<code>npm ERR! ERESOLVE unable to resolve dependency tree</code></a></li></ul></div><div class="category"><h3>Database &amp; auth</h3><ul class="fix-list"><li><a href="/fix/row-level-security-policy/">new row violates row-level security policy<code>new row violates row-level security policy for table</code></a></li><li><a href="/fix/supabase-auth-redirects-to-localhost/">Supabase login redirects to localhost<code>Magic link or OAuth login sends users to localhost:3000</code></a></li><li><a href="/fix/too-many-database-connections/">Too many database connections (serverless)<code>remaining connection slots are reserved / too many clients already</code></a></li></ul></div><div class="category"><h3>Payments</h3><ul class="fix-list"><li><a href="/fix/stripe-no-signatures-found/">No signatures found matching the expected signature for payload<code>No signatures found matching the expected signature for payload</code></a></li></ul></div><div class="category"><h3>Frontend</h3><ul class="fix-list"><li><a href="/fix/hydration-failed/">Hydration failed<code>Hydration failed because the server rendered HTML didn&#x27;t match the client</code></a></li><li><a href="/fix/window-is-not-defined/">ReferenceError: window is not defined<code>ReferenceError: window is not defined</code></a></li><li><a href="/fix/too-many-re-renders/">Too many re-renders<code>Too many re-renders. React limits the number of renders to prevent an infinite loop.</code></a></li></ul></div><div class="category"><h3>APIs</h3><ul class="fix-list"><li><a href="/fix/blocked-by-cors-policy/">blocked by CORS policy<code>has been blocked by CORS policy: No &#x27;Access-Control-Allow-Origin&#x27; header is present on the requested resource</code></a></li></ul></div><div class="category"><h3>AI APIs</h3><ul class="fix-list"><li><a href="/fix/incorrect-api-key-provided/">401 Incorrect API key provided<code>401 Incorrect API key provided</code></a></li><li><a href="/fix/ai-api-429-rate-limit/">429 Too Many Requests from an AI API<code>429 Rate limit reached / You exceeded your current quota</code></a></li></ul></div>
+</section>
+<section class="wrap"><div class="kit">
+<div><h2>Launch Kit, coming soon</h2><p>A pre-launch checklist for auth, secrets, payments and SEO, with a fix prompt for every item and rule files that stop AI tools making these mistakes in the first place.</p></div>
+<a class="btn" href="https://x.com/fixmyvibehq" rel="noopener">Follow for launch</a>
+</div></section>
+<script type="application/json" id="fix-index">[{"slug": "incorrect-api-key-provided", "title": "\"401 Incorrect API key\" / \"invalid x-api-key\" from an AI API", "error": "401 Incorrect API key provided", "category": "AI APIs", "phrases": ["401 incorrect api key provided", "401 incorrect api key provided", "401", "incorrect api key", "invalid api key", "invalid x-api-key", "authentication_error", "unauthorized", "openai", "anthropic"]}, {"slug": "ai-api-429-rate-limit", "title": "\"429 Too Many Requests\" or \"exceeded your current quota\"", "error": "429 Rate limit reached / You exceeded your current quota", "category": "AI APIs", "phrases": ["429 rate limit reached / you exceeded your current quota", "429 too many requests from an ai api", "429", "rate limit", "too many requests", "quota", "insufficient_quota", "exceeded your current quota", "overloaded"]}, {"slug": "blocked-by-cors-policy", "title": "\"Blocked by CORS policy\" when calling an API", "error": "has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource", "category": "APIs", "phrases": ["has been blocked by cors policy: no 'access-control-allow-origin' header is present on the requested resource", "blocked by cors policy", "cors", "access-control-allow-origin", "preflight", "blocked", "origin", "options"]}, {"slug": "vercel-function-invocation-timeout", "title": "Vercel \"FUNCTION_INVOCATION_TIMEOUT\"", "error": "504: GATEWAY_TIMEOUT \u2014 FUNCTION_INVOCATION_TIMEOUT", "category": "Deploy & environment", "phrases": ["504: gateway_timeout \u2014 function_invocation_timeout", "function_invocation_timeout on vercel", "function_invocation_timeout", "timeout", "504", "gateway_timeout", "timed out", "vercel"]}, {"slug": "hydration-failed", "title": "\"Hydration failed\" in Next.js", "error": "Hydration failed because the server rendered HTML didn't match the client", "category": "Frontend", "phrases": ["hydration failed because the server rendered html didn't match the client", "hydration failed", "hydration", "did not match", "didn't match", "server rendered", "text content does not match", "next.js"]}, {"slug": "module-not-found-on-deploy", "title": "\"Module not found: Can't resolve\" \u2014 builds locally, fails on deploy", "error": "Module not found: Can't resolve", "category": "Build", "phrases": ["module not found: can't resolve", "module not found: can't resolve", "module not found", "can't resolve", "cannot find module", "import", "build failed", "case"]}, {"slug": "row-level-security-policy", "title": "\"new row violates row-level security policy\" in Supabase", "error": "new row violates row-level security policy for table", "category": "Database & auth", "phrases": ["new row violates row-level security policy for table", "new row violates row-level security policy", "row-level security", "rls", "policy", "42501", "violates", "permission denied", "supabase", "insert"]}, {"slug": "stripe-no-signatures-found", "title": "Stripe webhook: \"No signatures found matching the expected signature\"", "error": "No signatures found matching the expected signature for payload", "category": "Payments", "phrases": ["no signatures found matching the expected signature for payload", "no signatures found matching the expected signature for payload", "stripe", "webhook", "signature", "whsec", "constructevent", "raw body", "payload"]}, {"slug": "npm-eresolve", "title": "\"ERESOLVE unable to resolve dependency tree\"", "error": "npm ERR! ERESOLVE unable to resolve dependency tree", "category": "Build", "phrases": ["npm err! eresolve unable to resolve dependency tree", "npm eresolve unable to resolve dependency tree", "eresolve", "dependency tree", "peer dep", "conflicting peer dependency", "legacy-peer-deps", "npm err"]}, {"slug": "process-is-not-defined-vite", "title": "\"process is not defined\" in a Vite app", "error": "Uncaught ReferenceError: process is not defined", "category": "Deploy & environment", "phrases": ["uncaught referenceerror: process is not defined", "process is not defined (vite)", "process is not defined", "process.env", "import.meta.env", "vite"]}, {"slug": "window-is-not-defined", "title": "\"window is not defined\" (or \"document\" / \"localStorage is not defined\")", "error": "ReferenceError: window is not defined", "category": "Frontend", "phrases": ["referenceerror: window is not defined", "referenceerror: window is not defined", "window is not defined", "document is not defined", "localstorage is not defined", "referenceerror", "ssr"]}, {"slug": "supabase-auth-redirects-to-localhost", "title": "Supabase login or magic link sends users to localhost", "error": "Magic link or OAuth login sends users to localhost:3000", "category": "Database & auth", "phrases": ["magic link or oauth login sends users to localhost:3000", "supabase login redirects to localhost", "localhost", "redirect", "magic link", "oauth", "site url", "redirect_to", "login", "sign in"]}, {"slug": "supabaseurl-is-required", "title": "\"supabaseUrl is required\" \u2014 works locally, broken after deploy", "error": "Error: supabaseUrl is required.", "category": "Deploy & environment", "phrases": ["error: supabaseurl is required.", "supabaseurl is required", "supabaseurl", "supabase url", "required", "supabasekey", "env", "environment variable", "production", "deploy"]}, {"slug": "too-many-database-connections", "title": "\"Too many connections\" after launch", "error": "remaining connection slots are reserved / too many clients already", "category": "Database & auth", "phrases": ["remaining connection slots are reserved / too many clients already", "too many database connections (serverless)", "too many connections", "too many clients", "connection slots", "prisma", "can't reach database server", "p1001", "pool", "pgbouncer"]}, {"slug": "too-many-re-renders", "title": "\"Too many re-renders\" in React", "error": "Too many re-renders. React limits the number of renders to prevent an infinite loop.", "category": "Frontend", "phrases": ["too many re-renders. react limits the number of renders to prevent an infinite loop.", "too many re-renders", "too many re-renders", "infinite loop", "maximum update depth", "setstate", "onclick"]}]</script>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a>
+</div></footer>
+<script>
+(function () {
+  var index = JSON.parse(document.getElementById('fix-index').textContent);
+  var form = document.getElementById('doctor-form');
+  var input = document.getElementById('doctor-input');
+  var out = document.getElementById('doctor-results');
+  function words(s) { return s.toLowerCase().match(/[a-z0-9_.-]{4,}/g) || []; }
+  function score(text, fix) {
+    var s = 0;
+    if (text.indexOf(fix.error.toLowerCase()) !== -1) s += 20;
+    fix.phrases.forEach(function (p) { if (p && text.indexOf(p) !== -1) s += p.split(/\s+/).length + 1; });
+    var errWords = {};
+    words(fix.error).forEach(function (w) { errWords[w] = true; });
+    var seen = {};
+    words(text).forEach(function (w) { if (errWords[w] && !seen[w]) { seen[w] = true; s += 1; } });
+    return s;
+  }
+  function link(fix, top) {
+    var a = document.createElement('a');
+    a.className = top ? 'result top' : 'result';
+    a.href = '/fix/' + fix.slug + '/';
+    var strong = document.createElement('strong');
+    strong.textContent = fix.title;
+    var span = document.createElement('span');
+    span.textContent = fix.category;
+    a.appendChild(strong); a.appendChild(span);
+    return a;
+  }
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var text = input.value.toLowerCase().trim();
+    out.innerHTML = '';
+    if (!text) return;
+    var ranked = index.map(function (f) { return { f: f, s: score(text, f) }; })
+      .filter(function (r) { return r.s >= 3; })
+      .sort(function (a, b) { return b.s - a.s; })
+      .slice(0, 3);
+    if (!ranked.length) {
+      var p = document.createElement('p');
+      p.className = 'hint';
+      p.textContent = "No match yet. We're adding fixes every week. Send this error to @fixmyvibehq on X and we'll write one.";
+      out.appendChild(p);
+      return;
+    }
+    ranked.forEach(function (r, i) { out.appendChild(link(r.f, i === 0)); });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Too many database connections (serverless): how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;remaining connection slots are reserved / too many clients already&quot; in apps built with Prisma, Drizzle, Postgres. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/too-many-database-connections/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Too many database connections (serverless): how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;remaining connection slots are reserved / too many clients already&quot; in apps built with Prisma, Drizzle, Postgres. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/too-many-database-connections/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Database &amp; auth</p>
+<h1>&quot;Too many connections&quot; after launch</h1>
+<div class="fix-error">remaining connection slots are reserved / too many clients already</div>
+<p class="meta">Prisma · Drizzle · Postgres · Supabase · Neon · Vercel · last checked 15 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>Your Postgres database ran out of connection slots. It worked fine with one user and starts failing as traffic grows. You may also see Prisma's "Can't reach database server" or "Timed out fetching a new connection".</p>
+<h2>Why AI tools cause it</h2>
+<p>On serverless hosts, every function instance opens its own connections. AI-generated setups usually use the direct database URL with no pooling, and often create a new database client on every request.</p>
+<h2>The fix</h2>
+<ol>
+<li>Use your provider's <strong>pooled</strong> connection string for the app (Supabase, Neon and others show it next to the direct one). Keep the direct URL for running migrations.</li>
+<li>With Prisma on a pooled connection, follow your provider's Prisma instructions; Supabase's transaction pooler, for example, needs <code>?pgbouncer=true</code> on the URL.</li>
+<li>Create the database client once and reuse it, rather than inside each request handler.</li>
+</ol>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>My serverless app hits "too many connections" on Postgres. Check how the database client is created, make it a single reused instance, switch the app to a pooled connection string with the right settings for my ORM and provider, and keep the direct URL only for migrations.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>Look for code that opens a connection in a loop, or a background script running alongside the app and holding connections open.</p></article>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

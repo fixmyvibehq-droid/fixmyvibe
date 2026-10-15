@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>new row violates row-level security policy: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;new row violates row-level security policy for table&quot; in apps built with Supabase, Lovable, Bolt. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/row-level-security-policy/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="new row violates row-level security policy: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;new row violates row-level security policy for table&quot; in apps built with Supabase, Lovable, Bolt. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/row-level-security-policy/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Database &amp; auth</p>
+<h1>&quot;new row violates row-level security policy&quot; in Supabase</h1>
+<div class="fix-error">new row violates row-level security policy for table</div>
+<p class="meta">Supabase · Lovable · Bolt · Cursor · last checked 15 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>Row Level Security (RLS) is switched on for the table, which is good. But no policy says this user is allowed to insert this row, so Supabase blocks it.</p>
+<h2>Why AI tools cause it</h2>
+<p>AI tools often turn RLS on (or you did, after a security warning) without writing the matching policies. Or the insert doesn't include the <code>user_id</code> the policy checks for.</p>
+<h2>The fix</h2>
+<ol>
+<li>In Supabase, open <strong>Authentication → Policies</strong> and find the table.</li>
+<li>Add an <strong>INSERT</strong> policy that lets signed-in users add rows they own, for example <code>with check (auth.uid() = user_id)</code>.</li>
+<li>Make sure your insert sends the user's id in the <code>user_id</code> column, and that the user is actually signed in when it runs.</li>
+</ol>
+<p><strong>Don't</strong> fix this by turning RLS off. That makes the table readable and writable by anyone with your public key.</p>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>Inserting into my Supabase table fails with "new row violates row-level security policy". Show me the RLS policies this table needs so users can create, read, update and delete only their own rows, as SQL I can run, and check my insert code sends user_id from the signed-in session.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>If it fails on a server route, check whether that code is using a signed-in client or an anonymous one. An anonymous client has no <code>auth.uid()</code>.</p></article>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

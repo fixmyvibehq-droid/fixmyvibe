@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ReferenceError: window is not defined: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;ReferenceError: window is not defined&quot; in apps built with Next.js, Remix, SvelteKit. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/window-is-not-defined/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="ReferenceError: window is not defined: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;ReferenceError: window is not defined&quot; in apps built with Next.js, Remix, SvelteKit. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/window-is-not-defined/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Frontend</p>
+<h1>&quot;window is not defined&quot; (or &quot;document&quot; / &quot;localStorage is not defined&quot;)</h1>
+<div class="fix-error">ReferenceError: window is not defined</div>
+<p class="meta">Next.js · Remix · SvelteKit · Cursor · v0 · last checked 15 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>Code that only exists in a browser ran on the server, where there's no <code>window</code>, <code>document</code> or <code>localStorage</code>.</p>
+<h2>Why AI tools cause it</h2>
+<p>Frameworks like Next.js render pages on the server first. AI-generated code often reads <code>window</code> or <code>localStorage</code> at the top of a file or during render, which runs on the server too. Some browser-only libraries (maps, charts, rich text editors) do this internally.</p>
+<h2>The fix</h2>
+<ol>
+<li>Move browser-only code into <code>useEffect</code>, which runs only in the browser.</li>
+<li>For a quick check elsewhere, guard it: <code>if (typeof window !== 'undefined') { ... }</code>.</li>
+<li>For a browser-only library or component, load it with <code>dynamic(() =&gt; import('./Map'), { ssr: false })</code> in Next.js.</li>
+</ol>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>My app crashes with "window is not defined" during server rendering. Find every use of window, document, localStorage and browser-only libraries in this project and make each run only in the browser, without disabling server rendering for whole pages.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>The stack trace names the file. If it's inside <code>node_modules</code>, that library is browser-only: load it with <code>ssr: false</code>.</p></article>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>
