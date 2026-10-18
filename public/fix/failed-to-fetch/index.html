@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Failed to fetch: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;TypeError: Failed to fetch&quot; in apps built with React, Next.js, Supabase. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/failed-to-fetch/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Failed to fetch: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;TypeError: Failed to fetch&quot; in apps built with React, Next.js, Supabase. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/failed-to-fetch/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / APIs</p>
+<h1>&quot;TypeError: Failed to fetch&quot; in the browser</h1>
+<div class="fix-error">TypeError: Failed to fetch</div>
+<p class="meta">React · Next.js · Supabase · Lovable · Bolt · Cursor · last checked 18 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>The browser tried to call a server and got no usable answer. It's a vague error because the browser hides the details from your code. The real reason is almost always in the browser's DevTools.</p>
+<h2>Why AI tools cause it</h2>
+<ul>
+<li><strong>The URL points at <code>localhost</code></strong>, which only exists on your computer, not your users'.</li>
+<li><strong>CORS</strong>: the server didn't allow your site's address. DevTools will say "blocked by CORS policy".</li>
+<li><strong>http vs https</strong>: a secure site calling an <code>http://</code> address is blocked.</li>
+<li><strong>The server is down, asleep or paused</strong> (a free Supabase project, or a Replit or Render server that sleeps).</li>
+<li><strong>A browser extension</strong> like an ad blocker blocked the request.</li>
+</ul>
+<h2>The fix</h2>
+<ol>
+<li>Open DevTools (F12 or right-click → Inspect), go to <strong>Console</strong> and <strong>Network</strong>, and repeat the action. The red line names the real problem.</li>
+<li>Check the URL being called. If it says <code>localhost</code> or <code>127.0.0.1</code> on your live site, move it into an environment variable and set the live address on your host.</li>
+<li>If the console mentions CORS, see our CORS fix.</li>
+<li>Open the API address directly in a new tab. If it doesn't load, the server is the problem, not your code.</li>
+<li>Try a private window with extensions off.</li>
+</ol>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>My app shows "TypeError: Failed to fetch". Here's what the browser console and Network tab say: &lt;paste them&gt;. Find every fetch call in this project, make sure none use a hard-coded localhost URL, and wrap them so users see a helpful message instead of a crash.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>If it fails only on some phones or networks, check that the API uses https and a valid certificate.</p></article>
+<aside class="aff-box"><p><strong>Starting your next project?</strong> Bolt writes, runs and deploys an app from a prompt, with nothing to install.</p><div class="aff-row"><a class="btn ghost" href="https://bolt.cello.so/tRVkqQ0HYIU" rel="sponsored nofollow noopener">Try Bolt</a><span class="aff-note">Affiliate link: we may earn a commission at no cost to you. <a href="/disclosure/">Details</a></span></div></aside>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<span class="footer-links"><a href="/tools/">Tools we recommend</a><a href="/disclosure/">Affiliate disclosure</a><a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a></span>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

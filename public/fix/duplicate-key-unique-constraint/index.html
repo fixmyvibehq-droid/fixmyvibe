@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>duplicate key value violates unique constraint: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;duplicate key value violates unique constraint&quot; in apps built with Supabase, Postgres, Prisma. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/duplicate-key-unique-constraint/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="duplicate key value violates unique constraint: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;duplicate key value violates unique constraint&quot; in apps built with Supabase, Postgres, Prisma. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/duplicate-key-unique-constraint/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Database &amp; auth</p>
+<h1>&quot;duplicate key value violates unique constraint&quot; (Postgres error 23505)</h1>
+<div class="fix-error">duplicate key value violates unique constraint</div>
+<p class="meta">Supabase · Postgres · Prisma · Lovable · Bolt · last checked 18 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>You tried to add a row with a value that must be unique, like an id, email or username, and a row with that value already exists. The error message names the constraint, which tells you which column it is.</p>
+<h2>Why AI tools cause it</h2>
+<ul>
+<li><strong>The insert runs twice</strong>: a double click, or a React effect firing twice in development.</li>
+<li><strong>A "create profile" step on every login</strong>, not just the first, so the second login fails.</li>
+<li><strong>A database trigger already created the row</strong> (common with Supabase profile tables), then your code tries to insert it again.</li>
+<li><strong>Ids typed in by hand</strong> in seed data, so the automatic counter later hands out an id that's already taken.</li>
+</ul>
+<h2>The fix</h2>
+<ol>
+<li>Read the constraint name in the error, e.g. <code>profiles_pkey</code> or <code>users_email_key</code>, to see which column clashed.</li>
+<li>If the row might already exist, use an upsert instead of an insert: <code>.upsert(row, { onConflict: 'id' })</code> in Supabase.</li>
+<li>Disable submit buttons while saving so one click means one insert.</li>
+<li>If you have a trigger that creates profiles, remove the duplicate insert from your app code.</li>
+</ol>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>My insert fails with 'duplicate key value violates unique constraint "&lt;constraint name&gt;"'. Find where this row is created, check whether a database trigger or a second code path also creates it, and change the code to an upsert or a check-then-insert so it can safely run more than once. Also stop double submits on the form.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>If it's the primary key on a table you seeded by hand, the id counter is behind. Ask your AI for the <code>setval</code> SQL to move the sequence past your highest id.</p></article>
+<aside class="aff-box"><p><strong>Starting your next project?</strong> Bolt writes, runs and deploys an app from a prompt, with nothing to install.</p><div class="aff-row"><a class="btn ghost" href="https://bolt.cello.so/tRVkqQ0HYIU" rel="sponsored nofollow noopener">Try Bolt</a><span class="aff-note">Affiliate link: we may earn a commission at no cost to you. <a href="/disclosure/">Details</a></span></div></aside>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<span class="footer-links"><a href="/tools/">Tools we recommend</a><a href="/disclosure/">Affiliate disclosure</a><a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a></span>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

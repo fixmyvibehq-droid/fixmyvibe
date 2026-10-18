@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>relation does not exist: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;relation &quot;public.table_name&quot; does not exist&quot; in apps built with Supabase, Postgres, Prisma. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/relation-does-not-exist/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="relation does not exist: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;relation &quot;public.table_name&quot; does not exist&quot; in apps built with Supabase, Postgres, Prisma. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/relation-does-not-exist/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Database &amp; auth</p>
+<h1>&quot;relation does not exist&quot; (Postgres error 42P01)</h1>
+<div class="fix-error">relation &quot;public.table_name&quot; does not exist</div>
+<p class="meta">Supabase · Postgres · Prisma · Drizzle · Lovable · Bolt · last checked 18 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>"Relation" is Postgres's word for a table. Your code asked for a table the database doesn't have. Through the Supabase client, the same problem usually shows up as <code>Could not find the table 'public.&lt;name&gt;' in the schema cache</code> (code PGRST205).</p>
+<h2>Why AI tools cause it</h2>
+<ul>
+<li><strong>The AI wrote the code but never ran the SQL</strong> that creates the table. Or it wrote a migration file that was never applied.</li>
+<li><strong>Different databases.</strong> The table exists in your local or test database but not in the production one your live site uses.</li>
+<li><strong>Spelling or capitals.</strong> <code>Profiles</code> and <code>profiles</code> are different tables to Postgres if the name was created in quotes.</li>
+<li><strong>Wrong schema.</strong> The table lives somewhere other than <code>public</code>.</li>
+</ul>
+<h2>The fix</h2>
+<ol>
+<li>In Supabase, open the <strong>Table Editor</strong> and check the table is really there, with exactly that name.</li>
+<li>If it's missing, find the <code>create table</code> SQL (often in a <code>supabase/migrations</code> folder) and run it in the <strong>SQL Editor</strong>, or ask your AI to write it.</li>
+<li>If you use Prisma or Drizzle, run their migrate command against the production database URL.</li>
+<li>Make your code use the exact name, ideally all lower case.</li>
+</ol>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>My app fails with 'relation "&lt;table name&gt;" does not exist'. List every table my code reads from or writes to, compare it with the tables and migrations in this project, and give me one SQL script I can run in the Supabase SQL Editor to create anything missing, with row-level security switched on and sensible policies.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>If the table exists but the error remains, the user may not have permission to see it. Check grants and RLS policies, then reload the schema cache by running <code>notify pgrst, 'reload schema';</code> in the SQL Editor.</p></article>
+<aside class="aff-box"><p><strong>Starting your next project?</strong> Bolt writes, runs and deploys an app from a prompt, with nothing to install.</p><div class="aff-row"><a class="btn ghost" href="https://bolt.cello.so/tRVkqQ0HYIU" rel="sponsored nofollow noopener">Try Bolt</a><span class="aff-note">Affiliate link: we may earn a commission at no cost to you. <a href="/disclosure/">Details</a></span></div></aside>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<span class="footer-links"><a href="/tools/">Tools we recommend</a><a href="/disclosure/">Affiliate disclosure</a><a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a></span>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

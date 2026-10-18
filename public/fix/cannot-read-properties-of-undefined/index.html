@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cannot read properties of undefined: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;TypeError: Cannot read properties of undefined (reading &#x27;map&#x27;)&quot; in apps built with React, Next.js, Lovable. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/cannot-read-properties-of-undefined/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Cannot read properties of undefined: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;TypeError: Cannot read properties of undefined (reading &#x27;map&#x27;)&quot; in apps built with React, Next.js, Lovable. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/cannot-read-properties-of-undefined/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Frontend</p>
+<h1>&quot;Cannot read properties of undefined (reading &#x27;map&#x27;)&quot;</h1>
+<div class="fix-error">TypeError: Cannot read properties of undefined (reading &#x27;map&#x27;)</div>
+<p class="meta">React · Next.js · Lovable · Bolt · v0 · Cursor · last checked 18 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>Your code tried to use something, like a list it wanted to loop through with <code>.map</code>, before it existed. The word in brackets (<code>'map'</code>, <code>'length'</code>, <code>'name'</code>) is what it was trying to read.</p>
+<h2>Why AI tools cause it</h2>
+<ul>
+<li><strong>Data hasn't loaded yet.</strong> The page draws before the database or API answers, so on the first render the list is <code>undefined</code>.</li>
+<li><strong>The data has a different shape</strong> than the AI assumed: it expected <code>data.items</code> but the API returns the list directly, or an error object.</li>
+<li><strong>Nothing came back</strong> because a request failed or the user isn't signed in.</li>
+</ul>
+<h2>The fix</h2>
+<ol>
+<li>Start lists as empty, not undefined: <code>useState([])</code> rather than <code>useState()</code>.</li>
+<li>Use optional chaining for data that might be missing: <code>items?.map(...)</code>, <code>user?.name</code>.</li>
+<li>Show a loading state until the data has arrived, and an error message if it fails.</li>
+<li><code>console.log</code> the data right after you fetch it and check its real shape matches what your code expects.</li>
+</ol>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>My page crashes with "Cannot read properties of undefined (reading '&lt;word&gt;')". Find where this value comes from, log the real shape of the data, and fix the component so it shows a loading state while data loads, an error message if it fails, and an empty state if the list is empty. Don't just hide the error with optional chaining everywhere.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>If it only happens on the live site, the request is probably failing there. Check the browser console for an error just before this one.</p></article>
+<aside class="aff-box"><p><strong>Starting your next project?</strong> Bolt writes, runs and deploys an app from a prompt, with nothing to install.</p><div class="aff-row"><a class="btn ghost" href="https://bolt.cello.so/tRVkqQ0HYIU" rel="sponsored nofollow noopener">Try Bolt</a><span class="aff-note">Affiliate link: we may earn a commission at no cost to you. <a href="/disclosure/">Details</a></span></div></aside>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<span class="footer-links"><a href="/tools/">Tools we recommend</a><a href="/disclosure/">Affiliate disclosure</a><a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a></span>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

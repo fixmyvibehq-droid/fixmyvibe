@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>This React Hook only works in a Client Component: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;You&#x27;re importing a component that needs useState. This React Hook only works in a Client Component.&quot; in apps built with Next.js, React, v0. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/use-client-directive-missing/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="This React Hook only works in a Client Component: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;You&#x27;re importing a component that needs useState. This React Hook only works in a Client Component.&quot; in apps built with Next.js, React, v0. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/use-client-directive-missing/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Frontend</p>
+<h1>&quot;needs useState... only works in a Client Component&quot; in Next.js</h1>
+<div class="fix-error">You&#x27;re importing a component that needs useState. This React Hook only works in a Client Component.</div>
+<p class="meta">Next.js · React · v0 · Cursor · last checked 18 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>In the Next.js App Router, components run on the server by default. Server components can't use things that need a browser, like <code>useState</code>, <code>useEffect</code>, <code>onClick</code> or <code>window</code>. To use them, the file must be marked as a client component.</p>
+<h2>Why AI tools cause it</h2>
+<p>AI tools mix code from the old Pages Router (where everything could use hooks) with the newer App Router, or add a button with <code>onClick</code> to a server page without marking it.</p>
+<h2>The fix</h2>
+<ol>
+<li>Open the file named in the error.</li>
+<li>Add <code>'use client'</code> as the very first line, above the imports.</li>
+<li>Keep it small: put the interactive part (the button, the form) in its own client component and import it into the server page, rather than marking the whole page as client.</li>
+<li>Don't add <code>'use client'</code> to files that use <code>async</code> components or read secrets on the server.</li>
+</ol>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>Next.js says "You're importing a component that needs useState. This React Hook only works in a Client Component." Find the components that need browser features, move the interactive parts into small client components with 'use client' at the top, and keep data loading and secrets in server components.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>If the error mentions <code>next/router</code>, switch to <code>next/navigation</code>, which is what the App Router uses.</p></article>
+
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<span class="footer-links"><a href="/tools/">Tools we recommend</a><a href="/disclosure/">Affiliate disclosure</a><a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a></span>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

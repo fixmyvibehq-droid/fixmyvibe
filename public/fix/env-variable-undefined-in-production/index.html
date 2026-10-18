@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Environment variable undefined in production: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;process.env.NEXT_PUBLIC_... is undefined&quot; in apps built with Vercel, Netlify, Next.js. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/env-variable-undefined-in-production/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Environment variable undefined in production: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;process.env.NEXT_PUBLIC_... is undefined&quot; in apps built with Vercel, Netlify, Next.js. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/env-variable-undefined-in-production/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Deploy &amp; environment</p>
+<h1>Environment variable is undefined after you deploy</h1>
+<div class="fix-error">process.env.NEXT_PUBLIC_... is undefined</div>
+<p class="meta">Vercel · Netlify · Next.js · Vite · Lovable · Bolt · last checked 18 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>Your app reads a setting, like an API URL or a public key, from an environment variable. On your computer it's there; on the live site it comes back <code>undefined</code>.</p>
+<h2>Why AI tools cause it</h2>
+<ul>
+<li><strong>The <code>.env</code> file never leaves your computer</strong> (it shouldn't), so the live host doesn't know the values until you add them there.</li>
+<li><strong>Missing prefix.</strong> Browser code can only see variables that start with <code>NEXT_PUBLIC_</code> (Next.js) or <code>VITE_</code> (Vite). Anything else is hidden from the browser on purpose.</li>
+<li><strong>Added but not rebuilt.</strong> These values are baked in when the site builds, so adding them later does nothing until you redeploy.</li>
+<li><strong>Set for the wrong environment</strong>, e.g. Preview but not Production on Vercel.</li>
+</ul>
+<h2>The fix</h2>
+<ol>
+<li>In your host's dashboard (Vercel: <strong>Settings → Environment Variables</strong>), add every variable from your <code>.env</code> file, spelled exactly the same.</li>
+<li>Tick the <strong>Production</strong> environment as well as Preview.</li>
+<li>Redeploy. On Vercel, open the latest deployment and choose <strong>Redeploy</strong>.</li>
+<li>Only use the <code>NEXT_PUBLIC_</code> or <code>VITE_</code> prefix for values that are safe for anyone to see. Secret keys stay without the prefix and are used only in server code.</li>
+</ol>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>An environment variable is undefined on my deployed site but works locally. List every environment variable this project uses, say whether each is needed in the browser or only on the server, check the browser ones have the right prefix for my framework, and flag any secret key that is wrongly exposed to the browser. Give me the exact list to paste into my host's settings.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>In Vite apps, use <code>import.meta.env.VITE_NAME</code>, not <code>process.env</code>. See our "process is not defined" fix.</p></article>
+<aside class="aff-box"><p><strong>Starting your next project?</strong> Bolt writes, runs and deploys an app from a prompt, with nothing to install.</p><div class="aff-row"><a class="btn ghost" href="https://bolt.cello.so/tRVkqQ0HYIU" rel="sponsored nofollow noopener">Try Bolt</a><span class="aff-note">Affiliate link: we may earn a commission at no cost to you. <a href="/disclosure/">Details</a></span></div></aside>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<span class="footer-links"><a href="/tools/">Tools we recommend</a><a href="/disclosure/">Affiliate disclosure</a><a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a></span>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

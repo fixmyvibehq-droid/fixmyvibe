@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Supabase egress over the free limit: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;Service for this project is restricted due to the following violations: exceed_egress_quota&quot; in apps built with Supabase, Lovable, Bolt. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/supabase-egress-over-free-limit/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Supabase egress over the free limit: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;Service for this project is restricted due to the following violations: exceed_egress_quota&quot; in apps built with Supabase, Lovable, Bolt. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/supabase-egress-over-free-limit/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Database &amp; auth</p>
+<h1>Supabase egress over the free limit (&quot;exceed_egress_quota&quot;)</h1>
+<div class="fix-error">Service for this project is restricted due to the following violations: exceed_egress_quota</div>
+<p class="meta">Supabase · Lovable · Bolt · Cursor · last checked 18 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>Egress is the data Supabase sends out of your project: database rows, files from Storage, auth and realtime traffic. The free plan includes 5 GB of uncached egress and 5 GB of cached egress a month. Go over it and Supabase emails you, gives you a grace period, and can then restrict the project. Once restricted, API requests fail with a 402 error and a message like <code>exceed_egress_quota</code>.</p>
+<h2>Why AI tools cause it</h2>
+<p>AI-written code tends to fetch far more than the screen needs:</p>
+<ul>
+<li><strong><code>select('*')</code> with no limit</strong>, so every page load downloads every row and every column.</li>
+<li><strong>Full-size images</strong> from Storage shown in small thumbnails.</li>
+<li><strong>Polling</strong>: a timer that refetches the same data every few seconds, in every open tab.</li>
+<li><strong>Writes ending in <code>.select()</code></strong>, which send the whole row back when you only needed the id.</li>
+</ul>
+<h2>The fix</h2>
+<ol>
+<li>In Supabase, open your organisation's <strong>Usage</strong> page and look at <strong>Egress</strong>. Hover over a day to see which service (Database, Storage, Realtime) used it.</li>
+<li>If it's Database: select only the columns you show, and add <code>.limit()</code> or pagination to every list.</li>
+<li>If it's Storage: resize images before upload, or serve smaller versions for thumbnails.</li>
+<li>Remove polling timers, or slow them right down. Filter any Realtime subscriptions to the rows the user actually needs.</li>
+<li>The restriction lifts at the start of your next billing cycle, or straight away if you upgrade.</li>
+</ol>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>My Supabase project went over the free egress limit. Find every Supabase query, Storage download and Realtime subscription in this project. For each one, tell me how much data it could pull, then change it to select only the columns the UI uses, add pagination or a limit to lists, remove or slow any polling, and stop inserts and updates returning full rows unless the code needs them.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>If usage still climbs, check whether a bot or a loop is hitting your API. In <strong>Logs</strong>, look for the same request repeating many times a minute.</p></article>
+<aside class="aff-box"><p><strong>Starting your next project?</strong> Bolt writes, runs and deploys an app from a prompt, with nothing to install.</p><div class="aff-row"><a class="btn ghost" href="https://bolt.cello.so/tRVkqQ0HYIU" rel="sponsored nofollow noopener">Try Bolt</a><span class="aff-note">Affiliate link: we may earn a commission at no cost to you. <a href="/disclosure/">Details</a></span></div></aside>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<span class="footer-links"><a href="/tools/">Tools we recommend</a><a href="/disclosure/">Affiliate disclosure</a><a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a></span>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

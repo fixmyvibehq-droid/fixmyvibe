@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unexpected token &#x27;&lt;&#x27; ... is not valid JSON: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;SyntaxError: Unexpected token &#x27;&lt;&#x27;, &quot;&lt;!DOCTYPE &quot;... is not valid JSON&quot; in apps built with React, Next.js, Vite. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/unexpected-token-not-valid-json/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Unexpected token &#x27;&lt;&#x27; ... is not valid JSON: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;SyntaxError: Unexpected token &#x27;&lt;&#x27;, &quot;&lt;!DOCTYPE &quot;... is not valid JSON&quot; in apps built with React, Next.js, Vite. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/unexpected-token-not-valid-json/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / APIs</p>
+<h1>&quot;Unexpected token &#x27;&lt;&#x27;, &quot;&lt;!DOCTYPE&quot;... is not valid JSON&quot;</h1>
+<div class="fix-error">SyntaxError: Unexpected token &#x27;&lt;&#x27;, &quot;&lt;!DOCTYPE &quot;... is not valid JSON</div>
+<p class="meta">React · Next.js · Vite · Vercel · Lovable · Bolt · last checked 18 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>Your code expected JSON data back from a request, but got a web page instead (web pages start with <code>&lt;!DOCTYPE</code> or <code>&lt;html</code>, hence the <code>&lt;</code>). Usually that page is a 404 or error page.</p>
+<h2>Why AI tools cause it</h2>
+<ul>
+<li><strong>The API route doesn't exist at that address</strong>, so the host sent back its 404 page or your app's <code>index.html</code>.</li>
+<li><strong>A relative URL like <code>/api/thing</code></strong> that worked in development but on the live site points at a static host with no API behind it.</li>
+<li><strong>The server crashed</strong> and returned an HTML error page.</li>
+<li><strong>A login wall or redirect</strong> in front of the API.</li>
+</ul>
+<h2>The fix</h2>
+<ol>
+<li>Open DevTools → <strong>Network</strong>, find the failing request and click <strong>Response</strong>. Read the page you actually got back. The title usually says what happened (404, 500, a login page).</li>
+<li>Check the request URL is right, and that the API is actually deployed. A Vite or React app doesn't have an <code>/api</code> folder unless you added server functions.</li>
+<li>If it's a 500 error, check your host's function logs for the real crash.</li>
+<li>Make your code check <code>response.ok</code> before calling <code>response.json()</code>.</li>
+</ol>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>My app fails with 'Unexpected token "&lt;", "&lt;!DOCTYPE"... is not valid JSON' when calling &lt;the URL&gt;. Check that this API route exists and is deployed with my app, and update the fetch code to check response.ok and the content type before parsing JSON, showing a clear error message if it isn't JSON.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>If you added a catch-all rewrite to <code>index.html</code> for page refreshes, make sure it doesn't also catch your <code>/api</code> routes.</p></article>
+<aside class="aff-box"><p><strong>Starting your next project?</strong> Bolt writes, runs and deploys an app from a prompt, with nothing to install.</p><div class="aff-row"><a class="btn ghost" href="https://bolt.cello.so/tRVkqQ0HYIU" rel="sponsored nofollow noopener">Try Bolt</a><span class="aff-note">Affiliate link: we may earn a commission at no cost to you. <a href="/disclosure/">Details</a></span></div></aside>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<span class="footer-links"><a href="/tools/">Tools we recommend</a><a href="/disclosure/">Affiliate disclosure</a><a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a></span>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

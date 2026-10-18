@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Email rate limit exceeded: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;AuthApiError: email rate limit exceeded&quot; in apps built with Supabase, Lovable, Bolt. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/supabase-email-rate-limit-exceeded/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Email rate limit exceeded: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;AuthApiError: email rate limit exceeded&quot; in apps built with Supabase, Lovable, Bolt. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/supabase-email-rate-limit-exceeded/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Database &amp; auth</p>
+<h1>&quot;email rate limit exceeded&quot; in Supabase Auth</h1>
+<div class="fix-error">AuthApiError: email rate limit exceeded</div>
+<p class="meta">Supabase · Lovable · Bolt · Cursor · last checked 18 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>Supabase has sent as many auth emails (sign-up confirmations, magic links, password resets) as it's allowed to in this window, so it refuses to send more for now.</p>
+<h2>Why AI tools cause it</h2>
+<p>Supabase's built-in email service is only for testing: it allows 2 emails an hour for your whole project. A couple of test sign-ups use it up. Paying for a bigger Supabase plan doesn't raise it. Code that sends a magic link on every keystroke or retry burns through it even faster.</p>
+<h2>The fix</h2>
+<ol>
+<li>Set up your own email sender in <strong>Authentication → Emails → SMTP Settings</strong>. Any SMTP provider works (Resend, Postmark, Brevo and others have free tiers).</li>
+<li>Once that's saved, raise the limit if you need to under <strong>Authentication → Rate Limits</strong>.</li>
+<li>Make sure your code only sends one email per button press, and disable the button while it's sending.</li>
+<li>There is also a 60-second wait per user between resends, so tell the user to wait a minute rather than letting them hammer the button.</li>
+</ol>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>Supabase gives "email rate limit exceeded". Check my sign-up, magic link and password reset code: make sure each sends exactly one email per click, disable the button while the request runs, and show a friendly "please wait a minute and try again" message when this error comes back.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>While you set up SMTP, test with accounts you create by hand in <strong>Authentication → Users</strong> (tick auto-confirm) so you don't need emails at all.</p></article>
+<aside class="aff-box"><p><strong>Starting your next project?</strong> Bolt writes, runs and deploys an app from a prompt, with nothing to install.</p><div class="aff-row"><a class="btn ghost" href="https://bolt.cello.so/tRVkqQ0HYIU" rel="sponsored nofollow noopener">Try Bolt</a><span class="aff-note">Affiliate link: we may earn a commission at no cost to you. <a href="/disclosure/">Details</a></span></div></aside>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<span class="footer-links"><a href="/tools/">Tools we recommend</a><a href="/disclosure/">Affiliate disclosure</a><a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a></span>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

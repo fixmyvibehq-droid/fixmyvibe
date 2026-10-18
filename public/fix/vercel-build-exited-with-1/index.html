@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Command &quot;npm run build&quot; exited with 1: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;Error: Command &quot;npm run build&quot; exited with 1&quot; in apps built with Vercel, Next.js, Vite. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/vercel-build-exited-with-1/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Command &quot;npm run build&quot; exited with 1: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;Error: Command &quot;npm run build&quot; exited with 1&quot; in apps built with Vercel, Next.js, Vite. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/vercel-build-exited-with-1/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Build</p>
+<h1>Vercel deploy fails: Command &quot;npm run build&quot; exited with 1</h1>
+<div class="fix-error">Error: Command &quot;npm run build&quot; exited with 1</div>
+<p class="meta">Vercel · Next.js · Vite · Lovable · Bolt · Cursor · last checked 18 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>"Exited with 1" just means the build failed. It isn't the real error. The real one is a few lines higher up in the build log.</p>
+<h2>Why AI tools cause it</h2>
+<ul>
+<li><strong>Type errors.</strong> TypeScript checks run during the build and stop it, even if the app looked fine in development.</li>
+<li><strong>Lint errors</strong> stop some builds (older Next.js versions and some Vite setups run a linter during build).</li>
+<li><strong>A missing file or package</strong>: see our "Module not found" fix.</li>
+<li><strong>A missing environment variable</strong> that the code reads while building.</li>
+<li><strong>A different Node version</strong> on Vercel than on your computer.</li>
+</ul>
+<h2>The fix</h2>
+<ol>
+<li>In Vercel, open the failed deployment and scroll the <strong>Build Logs</strong> up from the bottom to the first red error. That's the one to fix.</li>
+<li>Run <code>npm run build</code> on your own computer. It should fail the same way, so you can fix it faster.</li>
+<li>Fix the error it names. Don't switch off type checking to get past it: those errors usually point at real bugs.</li>
+<li>If it's about an environment variable, add it in <strong>Settings → Environment Variables</strong> and redeploy.</li>
+<li>If it mentions Node, set the same major version in <strong>Settings → Build and Deployment → Node.js Version</strong>, or add <code>"engines": { "node": "24.x" }</code> to package.json (this overrides the setting). Vercel only supports recent Node versions, so if yours is older locally, upgrade it.</li>
+</ol>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>My Vercel deploy fails with 'Command "npm run build" exited with 1'. Here is the first error in the build log: &lt;paste it&gt;. Fix the cause properly, without disabling TypeScript or lint checks, then run npm run build locally and confirm it passes.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>If it builds locally but not on Vercel, clear the build cache: redeploy and untick <strong>Use existing Build Cache</strong>.</p></article>
+<aside class="aff-box"><p><strong>Starting your next project?</strong> Bolt writes, runs and deploys an app from a prompt, with nothing to install.</p><div class="aff-row"><a class="btn ghost" href="https://bolt.cello.so/tRVkqQ0HYIU" rel="sponsored nofollow noopener">Try Bolt</a><span class="aff-note">Affiliate link: we may earn a commission at no cost to you. <a href="/disclosure/">Details</a></span></div></aside>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<span class="footer-links"><a href="/tools/">Tools we recommend</a><a href="/disclosure/">Affiliate disclosure</a><a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a></span>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

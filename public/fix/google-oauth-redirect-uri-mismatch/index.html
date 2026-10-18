@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Google sign-in: redirect_uri_mismatch: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;Error 400: redirect_uri_mismatch&quot; in apps built with Supabase, Google, Next.js. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/google-oauth-redirect-uri-mismatch/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Google sign-in: redirect_uri_mismatch: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;Error 400: redirect_uri_mismatch&quot; in apps built with Supabase, Google, Next.js. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/google-oauth-redirect-uri-mismatch/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Database &amp; auth</p>
+<h1>&quot;Error 400: redirect_uri_mismatch&quot; on Google sign-in</h1>
+<div class="fix-error">Error 400: redirect_uri_mismatch</div>
+<p class="meta">Supabase · Google · Next.js · Lovable · Bolt · last checked 18 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>Google only sends users back to addresses you've approved in advance. The address your app asked to return to isn't on that list, so Google stops at an error page.</p>
+<h2>Why AI tools cause it</h2>
+<ul>
+<li><strong>Supabase's callback address was never added.</strong> With Supabase Auth, Google returns users to Supabase first, not to your site.</li>
+<li><strong>Only <code>localhost</code> was added</strong>, so it works in development but not live.</li>
+<li><strong>Tiny differences</strong>: <code>http</code> vs <code>https</code>, <code>www</code> vs no <code>www</code>, or a trailing slash all count as different addresses.</li>
+</ul>
+<h2>The fix</h2>
+<ol>
+<li>In Supabase, open <strong>Authentication → Sign In / Providers → Google</strong> and copy the <strong>Callback URL</strong>. It looks like <code>https://&lt;your-project&gt;.supabase.co/auth/v1/callback</code>.</li>
+<li>In Google Cloud Console, open <strong>Google Auth Platform → Clients</strong> (also reachable via APIs &amp; Services → Credentials), click your OAuth client, and paste that exact address into <strong>Authorized redirect URIs</strong>. Save.</li>
+<li>Add your live site address (e.g. <code>https://yourapp.com</code>) under <strong>Authorized JavaScript origins</strong>.</li>
+<li>Back in Supabase, add your live site to <strong>Authentication → URL Configuration → Redirect URLs</strong> so users land on your site afterwards.</li>
+<li>Google says changes can take from 5 minutes to a few hours to apply. Try again in a private window.</li>
+</ol>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>Google sign-in fails with "Error 400: redirect_uri_mismatch". My app uses &lt;Supabase / NextAuth / other&gt;. Tell me exactly which redirect URIs and JavaScript origins I need in Google Cloud Console for both local development and my live domain &lt;your domain&gt;, and check my sign-in code passes the right redirectTo.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>Google's error page has a "see error details" link showing the exact address that was rejected. Copy it character for character into Google Cloud.</p></article>
+<aside class="aff-box"><p><strong>Starting your next project?</strong> Bolt writes, runs and deploys an app from a prompt, with nothing to install.</p><div class="aff-row"><a class="btn ghost" href="https://bolt.cello.so/tRVkqQ0HYIU" rel="sponsored nofollow noopener">Try Bolt</a><span class="aff-note">Affiliate link: we may earn a commission at no cost to you. <a href="/disclosure/">Details</a></span></div></aside>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<span class="footer-links"><a href="/tools/">Tools we recommend</a><a href="/disclosure/">Affiliate disclosure</a><a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a></span>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

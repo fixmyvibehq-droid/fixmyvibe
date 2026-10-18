@@ -41,6 +41,15 @@ def blank_before_lists(text):
     return '\n'.join(out)
 
 
+def render_markdown(body):
+    # Fix pages never use raw HTML, so treat "<" as text. This keeps prompt
+    # placeholders like <paste the error> visible instead of vanishing as tags.
+    md = markdown.Markdown(extensions=['extra', 'sane_lists'])
+    md.preprocessors.deregister('html_block')
+    md.inlinePatterns.deregister('html')
+    return md.convert(body)
+
+
 def load_fixes():
     keywords = json.loads((ROOT / 'data' / 'keywords.json').read_text())
     fixes = []
@@ -61,7 +70,7 @@ def load_fixes():
             'category': meta['category'],
             'tools': meta.get('tools', []),
             'checked': checked,
-            'html': markdown.markdown(body, extensions=['extra', 'sane_lists']),
+            'html': render_markdown(body),
             'keywords': keywords.get(slug, []),
         })
     return sorted(fixes, key=lambda f: f['title'].lower())

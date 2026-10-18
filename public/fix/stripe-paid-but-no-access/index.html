@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customer paid but didn&#x27;t get access: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;Payment succeeded but user not upgraded&quot; in apps built with Stripe, Supabase, Next.js. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/stripe-paid-but-no-access/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Customer paid but didn&#x27;t get access: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;Payment succeeded but user not upgraded&quot; in apps built with Stripe, Supabase, Next.js. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/stripe-paid-but-no-access/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Payments</p>
+<h1>Customer paid on Stripe but didn&#x27;t get access in your app</h1>
+<div class="fix-error">Payment succeeded but user not upgraded</div>
+<p class="meta">Stripe · Supabase · Next.js · Lovable · Bolt · last checked 18 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>Stripe took the money, but your app never found out, so the customer's account still looks unpaid. It's one of the most common complaints about vibe-coded apps, and the fastest way to get refund requests.</p>
+<h2>Why AI tools cause it</h2>
+<ul>
+<li><strong>The upgrade only happens on the "success" page.</strong> If the customer closes the tab, or their connection drops, the code never runs. Anyone who finds that URL can also upgrade themselves for free.</li>
+<li><strong>No webhook</strong>, or a webhook still pointing at <code>localhost</code> or a test-mode endpoint.</li>
+<li><strong>The webhook can't tell which user paid</strong>, because no user id or email was attached to the checkout.</li>
+<li><strong>The webhook crashes</strong> on a signature error or a database permission error, and nobody looks.</li>
+</ul>
+<h2>The fix</h2>
+<ol>
+<li>Grant access from a Stripe webhook listening for <code>checkout.session.completed</code>, but only when the session's <code>payment_status</code> is <code>paid</code>. Also listen for <code>checkout.session.async_payment_succeeded</code> to catch slower payment methods like bank debits. For subscriptions, remove access on <code>customer.subscription.deleted</code>. Never grant access from the success page alone.</li>
+<li>When creating the checkout, pass the user's id as <code>client_reference_id</code> (or in <code>metadata</code>) so the webhook knows who to upgrade.</li>
+<li>In Stripe, open <strong>Workbench → Webhooks</strong> (in live mode), click your endpoint, check its URL is your live site, and open <strong>Event deliveries</strong>. Failed deliveries show the error, and you can click <strong>Resend</strong>.</li>
+<li>The webhook writes to your database as a server, so use a server-side key there (for example Supabase's secret / service_role key), not the user's session. Keep that key only in server environment variables, never with a <code>NEXT_PUBLIC_</code> or <code>VITE_</code> prefix.</li>
+<li>For anyone already stuck, upgrade them by hand and send a short apology.</li>
+</ol>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>Customers pay with Stripe but sometimes don't get access. Move the "grant access" logic into a Stripe webhook for checkout.session.completed (only when payment_status is paid) and checkout.session.async_payment_succeeded that verifies the signature, finds the user from client_reference_id, and updates their account. Make it safe to receive the same event twice. The success page should only show a message, never grant access.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>If the webhook shows "No signatures found", see our fix for that error. If it shows a 307 or 308 redirect, your endpoint URL is missing or adding <code>www</code> or a trailing slash. Copy the exact final URL into Stripe.</p></article>
+<aside class="aff-box"><p><strong>Starting your next project?</strong> Bolt writes, runs and deploys an app from a prompt, with nothing to install.</p><div class="aff-row"><a class="btn ghost" href="https://bolt.cello.so/tRVkqQ0HYIU" rel="sponsored nofollow noopener">Try Bolt</a><span class="aff-note">Affiliate link: we may earn a commission at no cost to you. <a href="/disclosure/">Details</a></span></div></aside>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<span class="footer-links"><a href="/tools/">Tools we recommend</a><a href="/disclosure/">Affiliate disclosure</a><a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a></span>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

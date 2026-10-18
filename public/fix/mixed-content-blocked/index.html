@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mixed Content blocked: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;Mixed Content: The page at &#x27;...&#x27; was loaded over HTTPS, but requested an insecure resource &#x27;...&#x27;&quot; in apps built with Vercel, Netlify, Replit. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/mixed-content-blocked/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Mixed Content blocked: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;Mixed Content: The page at &#x27;...&#x27; was loaded over HTTPS, but requested an insecure resource &#x27;...&#x27;&quot; in apps built with Vercel, Netlify, Replit. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/mixed-content-blocked/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Deploy &amp; environment</p>
+<h1>&quot;Mixed Content: ... requested an insecure resource&quot; after deploying</h1>
+<div class="fix-error">Mixed Content: The page at &#x27;...&#x27; was loaded over HTTPS, but requested an insecure resource &#x27;...&#x27;</div>
+<p class="meta">Vercel · Netlify · Replit · React · Lovable · Bolt · last checked 18 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>Your live site is secure (<code>https://</code>), but it's trying to load something over an insecure <code>http://</code> address: an API, an image or a script. Browsers block that, so the request silently fails.</p>
+<h2>Why AI tools cause it</h2>
+<ul>
+<li><strong>The API address was hard-coded</strong> as <code>http://localhost:...</code> or <code>http://</code> some server, which worked in development where everything was plain http.</li>
+<li><strong>An image or script URL</strong> copied from somewhere with <code>http://</code>.</li>
+<li><strong>Your backend doesn't have https set up</strong>, e.g. a server on a bare IP address.</li>
+</ul>
+<h2>The fix</h2>
+<ol>
+<li>Open DevTools → <strong>Console</strong>. The warning names the exact <code>http://</code> address being blocked.</li>
+<li>Change it to <code>https://</code>. If it's your own API, put the address in an environment variable so live and local can differ.</li>
+<li>If that server doesn't support https, host it somewhere that does (Vercel, Render, Railway, Fly.io and Replit deployments all give you https), or put it behind a service like Cloudflare.</li>
+<li>Redeploy and hard-refresh the page.</li>
+</ol>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>My live site shows "Mixed Content: The page at &lt;my site&gt; was loaded over HTTPS, but requested an insecure resource '&lt;paste URL&gt;'". Find every hard-coded http:// URL in this project, move API addresses into environment variables, and switch everything else to https.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>If the address is already https but still blocked, check for a redirect from https back to http on the server side.</p></article>
+<aside class="aff-box"><p><strong>Starting your next project?</strong> Bolt writes, runs and deploys an app from a prompt, with nothing to install.</p><div class="aff-row"><a class="btn ghost" href="https://bolt.cello.so/tRVkqQ0HYIU" rel="sponsored nofollow noopener">Try Bolt</a><span class="aff-note">Affiliate link: we may earn a commission at no cost to you. <a href="/disclosure/">Details</a></span></div></aside>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<span class="footer-links"><a href="/tools/">Tools we recommend</a><a href="/disclosure/">Affiliate disclosure</a><a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a></span>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>

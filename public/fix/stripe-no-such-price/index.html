@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>No such price: how to fix it | FixMyVibe</title>
+<meta name="description" content="How to fix &quot;No such price: &#x27;price_...&#x27;&quot; in apps built with Stripe, Next.js, Lovable. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<link rel="canonical" href="https://fixmyvibe.org/fix/stripe-no-such-price/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="No such price: how to fix it | FixMyVibe">
+<meta property="og:description" content="How to fix &quot;No such price: &#x27;price_...&#x27;&quot; in apps built with Stripe, Next.js, Lovable. Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.">
+<meta property="og:url" content="https://fixmyvibe.org/fix/stripe-no-such-price/">
+<meta property="og:site_name" content="FixMyVibe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@fixmyvibehq">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="/">{✓} fixmyvibe</a>
+<nav class="nav" aria-label="Main"><a href="/#doctor">Error Doctor</a><a href="/#library">Fixes</a><a href="https://x.com/fixmyvibehq" rel="noopener">X</a></nav>
+</div></header>
+<main>
+<div class="wrap narrow article">
+<p class="crumb"><a href="/#library">Fixes</a> / Payments</p>
+<h1>&quot;No such price&quot; when creating a Stripe Checkout</h1>
+<div class="fix-error">No such price: &#x27;price_...&#x27;</div>
+<p class="meta">Stripe · Next.js · Lovable · Bolt · Vercel · last checked 18 Oct 2026</p>
+<article><h2>What it means</h2>
+<p>Your code asked Stripe to sell a price id that Stripe can't find with the key you're using.</p>
+<h2>Why AI tools cause it</h2>
+<ul>
+<li><strong>Test and live mix-up.</strong> By far the most common one. Prices made in test mode don't exist in live mode, and the other way round. A live key plus a test price (or a test key plus a live price) gives this error.</li>
+<li><strong>A made-up id.</strong> The AI wrote a placeholder like <code>price_123</code> and it was never replaced.</li>
+<li><strong>Wrong Stripe account</strong>, if you have more than one.</li>
+<li><strong>A product id (<code>prod_...</code>) used where a price id (<code>price_...</code>) is needed.</strong></li>
+</ul>
+<h2>The fix</h2>
+<ol>
+<li>In Stripe, open <strong>Product catalog</strong>, click the product, and copy the price id. It starts with <code>price_</code>.</li>
+<li>Check the account and environment picker at the top of the Stripe dashboard: are you in a sandbox, test mode or live mode? Your secret key must come from the same place. Test and sandbox keys start <code>sk_test_</code>, live keys <code>sk_live_</code>. A price made in one doesn't exist in the others.</li>
+<li>When you go live, recreate the product in live mode (or copy it from test mode) and put the new live price id in your live environment variables.</li>
+<li>Keep price ids in environment variables, not in code, so test and live can differ.</li>
+</ol>
+<h2>Paste this into your AI</h2>
+<blockquote>
+<p>My Stripe Checkout fails with "No such price". Move every Stripe price id out of the code into environment variables, check each one starts with price_ (not prod_), and add a startup check that warns me if a live secret key (sk_live_) is used with prices from test mode.</p>
+</blockquote>
+<h2>Still broken?</h2>
+<p>If you sell with Stripe Payment Links instead, there are no price ids in your code at all. Just check the link was made in live mode.</p></article>
+<aside class="aff-box"><p><strong>Starting your next project?</strong> Bolt writes, runs and deploys an app from a prompt, with nothing to install.</p><div class="aff-row"><a class="btn ghost" href="https://bolt.cello.so/tRVkqQ0HYIU" rel="sponsored nofollow noopener">Try Bolt</a><span class="aff-note">Affiliate link: we may earn a commission at no cost to you. <a href="/disclosure/">Details</a></span></div></aside>
+<p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<span>© 2026 FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
+<span class="footer-links"><a href="/tools/">Tools we recommend</a><a href="/disclosure/">Affiliate disclosure</a><a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a></span>
+</div></footer>
+<script>
+document.querySelectorAll('.article blockquote').forEach(function (quote) {
+  var text = quote.innerText.trim();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn copy-btn';
+  btn.textContent = 'Copy';
+  btn.setAttribute('aria-label', 'Copy prompt');
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; },
+      function () { btn.textContent = 'Select & copy'; });
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+  quote.appendChild(btn);
+});
+</script>
+</body>
+</html>
