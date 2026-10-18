@@ -235,7 +235,7 @@ def tool_box(f, tools):
     for t in tools:
         if t['affiliate'] and any(m in f['tools'] for m in t['match']):
             return (f'<aside class="aff-box"><p><strong>Starting your next project?</strong> '
-                    f'{e(t["name"])}: {e(t["about"].split(". ")[0].lower())}.</p>'
+                    f'{e(t.get("pitch", t["about"]))}</p>'
                     f'<div class="aff-row">{aff_link(t, "Try " + t["name"], "btn ghost")}{AFF_NOTE}</div></aside>')
     return ''
 

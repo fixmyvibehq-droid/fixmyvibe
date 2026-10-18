@@ -6,7 +6,10 @@
     "about": "Describe what you want and Bolt writes, runs and deploys the app without installing anything. Good for first projects and quick prototypes. If you already code, an editor like Cursor or Claude Code gives you more control.",
     "url": "https://bolt.cello.so/tRVkqQ0HYIU",
     "affiliate": true,
-    "match": ["Bolt"]
+    "match": [
+      "Bolt"
+    ],
+    "pitch": "Bolt writes, runs and deploys an app from a prompt, with nothing to install."
   },
   {
     "id": "supabase",
