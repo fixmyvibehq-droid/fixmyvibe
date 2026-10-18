@@ -101,7 +101,7 @@ def page(title, description, path, body, scripts=''):
 </main>
 <footer class="site-footer"><div class="wrap">
 <span>© {year} FixMyVibe. Fixes are checked against official docs, but always test before you ship.</span>
-<a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a>
+<span class="footer-links"><a href="/tools/">Tools we recommend</a><a href="/disclosure/">Affiliate disclosure</a><a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a></span>
 </div></footer>
 {scripts}
 </body>
@@ -204,7 +204,7 @@ def build_home(fixes):
 </section>
 <section class="wrap" id="library" aria-labelledby="library-title">
 <h2 class="section-title" id="library-title">Fix library</h2>
-<p class="section-sub">{len(fixes)} fixes and growing. New ones added every week.</p>
+<p class="section-sub">{len(fixes)} fixes and growing. New ones added every week. Starting a new project? See <a href="/tools/">the tools we recommend</a>.</p>
 {''.join(sections)}
 </section>
 <section class="wrap"><div class="kit">
@@ -217,17 +217,79 @@ def build_home(fixes):
                 '/', body, DOCTOR_JS)
 
 
-def build_fix(f):
+def load_tools():
+    return json.loads((ROOT / 'data' / 'tools.json').read_text())
+
+
+def aff_link(tool, text, cls='btn'):
+    rel = 'sponsored nofollow noopener' if tool['affiliate'] else 'noopener'
+    return f'<a class="{cls}" href="{e(tool["url"])}" rel="{rel}">{e(text)}</a>'
+
+
+AFF_NOTE = ('<span class="aff-note">Affiliate link: we may earn a commission at no cost to you. '
+            '<a href="/disclosure/">Details</a></span>')
+
+
+def tool_box(f, tools):
+    """A short note under a fix that's tagged with a tool we have an affiliate link for."""
+    for t in tools:
+        if t['affiliate'] and any(m in f['tools'] for m in t['match']):
+            return (f'<aside class="aff-box"><p><strong>Starting your next project?</strong> '
+                    f'{e(t["name"])}: {e(t["about"].split(". ")[0].lower())}.</p>'
+                    f'<div class="aff-row">{aff_link(t, "Try " + t["name"], "btn ghost")}{AFF_NOTE}</div></aside>')
+    return ''
+
+
+def build_tools(tools):
+    cards = []
+    for t in tools:
+        note = AFF_NOTE if t['affiliate'] else ''
+        cards.append(f'''<li class="tool-card">
+<h2>{e(t["name"])}</h2>
+<p class="tool-for">{e(t["for"])}</p>
+<p>{e(t["about"])}</p>
+<div class="aff-row">{aff_link(t, "Visit " + t["name"], "btn ghost")}{note}</div>
+</li>''')
+    body = f'''<div class="wrap narrow article">
+<p class="crumb"><a href="/">Home</a> / Tools</p>
+<h1>Tools we recommend</h1>
+<p>The tools we'd pick for a first app, and the ones our fixes come up against most. Some links are affiliate links and are marked; they never change what we recommend.</p>
+<ul class="tool-list">{''.join(cards)}</ul>
+</div>'''
+    return page('Tools we recommend for vibe coding | FixMyVibe',
+                'The AI app builders, databases, payments and hosting we recommend for building your first app.',
+                '/tools/', body)
+
+
+def build_disclosure():
+    body = '''<div class="wrap narrow article">
+<p class="crumb"><a href="/">Home</a> / Disclosure</p>
+<h1>Affiliate disclosure</h1>
+<p>FixMyVibe is free to use. To keep it that way, some links on this site are affiliate links. If you click one and later pay for that product, we may earn a commission. It costs you nothing extra.</p>
+<h2>How we handle this</h2>
+<ul>
+<li>Affiliate links are always marked next to the link.</li>
+<li>We only link a tool where it genuinely fits the problem or page.</li>
+<li>Commissions never change our fixes. If a tool causes a problem, we say so.</li>
+<li>We also recommend tools we earn nothing from.</li>
+</ul>
+<p>Questions? Message <a href="https://x.com/fixmyvibehq" rel="noopener">@fixmyvibehq</a> on X.</p>
+</div>'''
+    return page('Affiliate disclosure | FixMyVibe', 'How FixMyVibe uses affiliate links.', '/disclosure/', body)
+
+
+def build_fix(f, tools):
     checked = f['checked'].strftime('%-d %b %Y')
-    tools = ' · '.join(f['tools'])
+    tool_names = ' · '.join(f['tools'])
     description = (f'How to fix "{f["error"]}" in apps built with {", ".join(f["tools"][:3])}. '
                    'Plain-English cause, step-by-step fix and a copy-paste prompt for your AI.')
     body = f'''<div class="wrap narrow article">
 <p class="crumb"><a href="/#library">Fixes</a> / {e(f["category"])}</p>
 <h1>{e(f["heading"])}</h1>
 <div class="fix-error">{e(f["error"])}</div>
-<p class="meta">{e(tools)} · last checked {checked}</p>
+<p class="meta">{e(tool_names)} · last checked {checked}</p>
 <article>{f["html"]}</article>
+{tool_box(f, tools)}
 <p style="margin-top: 48px"><a class="btn ghost" href="/#doctor">Got a different error? Try Error Doctor</a></p>
 </div>'''
     return page(f'{f["title"]}: how to fix it | FixMyVibe', description, f'/fix/{f["slug"]}/', body, COPY_JS)
@@ -241,6 +303,7 @@ def build_404():
 
 def main():
     fixes = load_fixes()
+    tools = load_tools()
     if OUT.exists():
         shutil.rmtree(OUT)
     (OUT / 'fix').mkdir(parents=True)
@@ -248,11 +311,15 @@ def main():
         shutil.copy(asset, OUT / asset.name)
     (OUT / 'index.html').write_text(build_home(fixes))
     (OUT / '404.html').write_text(build_404())
+    for name, html_text in (('tools', build_tools(tools)), ('disclosure', build_disclosure())):
+        (OUT / name).mkdir()
+        (OUT / name / 'index.html').write_text(html_text)
     for f in fixes:
         d = OUT / 'fix' / f['slug']
         d.mkdir()
-        (d / 'index.html').write_text(build_fix(f))
-    urls = [f'{SITE}/'] + [f'{SITE}/fix/{f["slug"]}/' for f in fixes]
+        (d / 'index.html').write_text(build_fix(f, tools))
+    urls = ([f'{SITE}/', f'{SITE}/tools/', f'{SITE}/disclosure/']
+            + [f'{SITE}/fix/{f["slug"]}/' for f in fixes])
     (OUT / 'sitemap.xml').write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + ''.join(f'<url><loc>{u}</loc></url>\n' for u in urls) + '</urlset>\n')

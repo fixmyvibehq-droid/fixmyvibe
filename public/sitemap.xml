@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url><loc>https://fixmyvibe.org/</loc></url>
+<url><loc>https://fixmyvibe.org/tools/</loc></url>
+<url><loc>https://fixmyvibe.org/disclosure/</loc></url>
 <url><loc>https://fixmyvibe.org/fix/incorrect-api-key-provided/</loc></url>
 <url><loc>https://fixmyvibe.org/fix/ai-api-429-rate-limit/</loc></url>
 <url><loc>https://fixmyvibe.org/fix/blocked-by-cors-policy/</loc></url>

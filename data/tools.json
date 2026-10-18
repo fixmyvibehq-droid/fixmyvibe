@@ -1,0 +1,38 @@
+[
+  {
+    "id": "bolt",
+    "name": "Bolt",
+    "for": "Building a full web app from a prompt, in your browser",
+    "about": "Describe what you want and Bolt writes, runs and deploys the app without installing anything. Good for first projects and quick prototypes. If you already code, an editor like Cursor or Claude Code gives you more control.",
+    "url": "https://bolt.cello.so/tRVkqQ0HYIU",
+    "affiliate": true,
+    "match": ["Bolt"]
+  },
+  {
+    "id": "supabase",
+    "name": "Supabase",
+    "for": "Database, sign-in and file storage",
+    "about": "The back end most AI app builders connect to. Generous free tier. Turn on Row Level Security for every table before you launch.",
+    "url": "https://supabase.com",
+    "affiliate": false,
+    "match": []
+  },
+  {
+    "id": "stripe",
+    "name": "Stripe",
+    "for": "Taking payments",
+    "about": "Payment Links let you sell without writing payment code. If you do build checkout yourself, verify webhooks with the raw request body.",
+    "url": "https://stripe.com",
+    "affiliate": false,
+    "match": []
+  },
+  {
+    "id": "cloudflare-pages",
+    "name": "Cloudflare Pages",
+    "for": "Hosting a site for free, including commercial sites",
+    "about": "Fast free hosting that deploys from GitHub. A good fit for static sites and simple apps.",
+    "url": "https://pages.cloudflare.com",
+    "affiliate": false,
+    "match": []
+  }
+]
